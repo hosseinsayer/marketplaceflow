@@ -2,27 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class User extends Authenticatable
+class Product extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    protected $hidden = [
-        'password',
-    ];
-
     public function vendor()
     {
-        return $this->hasOne(Vendor::class);
+        return $this->belongsTo(Vendor::class);
     }
 
-    public function orders()
+    public function category()
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
     }
 
     public function reviews()
